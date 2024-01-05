@@ -1,4 +1,0 @@
-cd C:\Users\Jenson\source\repos\LC-SilentTeleporter
-copy ".\SilentTeleporter\bin\Release\netstandard2.1\SilentTeleporter.dll" ".\Output\SilentTeleporter.dll" /Y
-copy ".\SilentTeleporter\bin\Release\netstandard2.1\SilentTeleporter.dll" "C:\Users\Jenson\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx\plugins\Dev1A3-SilentTeleporter\SilentTeleporter.dll" /Y
-copy ".\SilentTeleporter\bin\Release\netstandard2.1\SilentTeleporter.pdb" "C:\Users\Jenson\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx\plugins\Dev1A3-SilentTeleporter\SilentTeleporter.pdb" /Y

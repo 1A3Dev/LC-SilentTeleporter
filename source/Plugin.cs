@@ -50,27 +50,33 @@ namespace SilentTeleporter
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> TranspileMoveNext(IEnumerable<CodeInstruction> instructions)
         {
-            var newInstructions = new List<CodeInstruction>(instructions);
-
-            // I defo overcomplicated this but it works so yeah...
-
-            int startIndex = 99; // IL_015E: ldfld     class GameNetcodeStuff.PlayerControllerB ShipTeleporter/'<beamUpPlayer>d__32'::'<playerToBeamUp>5__2'
-            int endIndex = 135; // IL_01DD: callvirt  instance void [UnityEngine.AudioModule]UnityEngine.AudioSource::PlayOneShot(class [UnityEngine.AudioModule]UnityEngine.AudioClip)
-
-            var startInstruction = newInstructions[startIndex];
-            if (startInstruction != null && startInstruction.opcode == OpCodes.Ldfld && startInstruction.operand.ToString() == "GameNetcodeStuff.PlayerControllerB <playerToBeamUp>5__2")
+            var newInstructions = new List<CodeInstruction>();
+            bool hasSkipped = false;
+            bool startFound = false;
+            bool shouldSkip = false;
+            foreach (var instruction in instructions)
             {
-                var endInstruction = newInstructions[endIndex];
-                if (endInstruction.opcode == OpCodes.Callvirt && endInstruction.operand.ToString() == "Void PlayOneShot(UnityEngine.AudioClip)")
+                if (!hasSkipped && instruction.opcode == OpCodes.Call && instruction.operand.ToString() == "Void SetPlayerTeleporterId(GameNetcodeStuff.PlayerControllerB, Int32)")
                 {
-                    newInstructions.RemoveRange(startIndex, (endIndex - startIndex) + 2);
-                    PluginLoader.logSource.LogInfo("Replaced Teleport Code");
-                    //int index = 0;
-                    //foreach (var instruction in newInstructions)
-                    //{
-                    //    PluginLoader.logSource.LogInfo($"[{index}] {instruction.opcode}: {instruction.operand}");
-                    //    index++;
-                    //}
+                    //PluginLoader.logSource.LogInfo("Found SetPlayerTeleporterId");
+                    startFound = true;
+                }
+                else if (!hasSkipped && startFound && instruction.opcode == OpCodes.Ldarg_0)
+                {
+                    //PluginLoader.logSource.LogInfo("Found Ldarg_0");
+                    shouldSkip = true;
+                    hasSkipped = true;
+                }
+                else if (instruction.opcode == OpCodes.Ldstr && instruction.operand.ToString() == "Teleport A")
+                {
+                    //PluginLoader.logSource.LogInfo("Found Teleport A");
+                    shouldSkip = false;
+                }
+
+                if (!shouldSkip)
+                {
+                    //PluginLoader.logSource.LogInfo($"[] {instruction.opcode}: {instruction.operand}");
+                    newInstructions.Add(instruction);
                 }
             }
 

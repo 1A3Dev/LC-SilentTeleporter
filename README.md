@@ -14,6 +14,7 @@ _Note: The particles and sound effects are only removed from the normal teleport
 ### Compatibility
 
 - Supported Game Versions:
+  - v48
   - v47
   - v45
 - Works Well With:

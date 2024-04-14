@@ -1,7 +1,0 @@
-{
-  "name": "SilentTeleporter",
-  "version_number": "1.0.4",
-  "website_url": "https://github.com/1A3Dev/LC-SilentTeleporter",
-  "description": "Allows you to disable the teleport particles and sound effects.",
-  "dependencies": ["BepInEx-BepInExPack-5.4.2100"]
-}

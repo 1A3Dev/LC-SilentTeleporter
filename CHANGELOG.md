@@ -1,3 +1,7 @@
+### 1.0.5
+
+- Updated README.md
+
 ### 1.0.4
 
 - Updated README.md to mention v50 support.

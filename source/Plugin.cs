@@ -10,14 +10,10 @@ using OpCodes = System.Reflection.Emit.OpCodes;
 
 namespace SilentTeleporter
 {
-    [BepInPlugin(modGUID, "SilentTeleporter", modVersion)]
+    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
     internal class PluginLoader : BaseUnityPlugin
     {
-        internal const string modGUID = "Dev1A3.SilentTeleporter";
-
-        private readonly Harmony harmony = new Harmony(modGUID);
-
-        private const string modVersion = "1.0.0";
+        private readonly Harmony harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
 
         private static bool initialized;
 
@@ -34,7 +30,7 @@ namespace SilentTeleporter
             initialized = true;
             Instance = this;
 
-            logSource = BepInEx.Logging.Logger.CreateLogSource(modGUID);
+            logSource = BepInEx.Logging.Logger.CreateLogSource(MyPluginInfo.PLUGIN_GUID);
 
             Assembly patches = Assembly.GetExecutingAssembly();
             harmony.PatchAll(patches);

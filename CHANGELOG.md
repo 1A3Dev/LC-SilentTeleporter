@@ -1,3 +1,7 @@
+### 1.0.8
+
+- README now shows which mod version should be used for each game version
+
 ### 1.0.7
 
 - Re-built for v73
